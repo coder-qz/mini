@@ -1,0 +1,2 @@
+<import src="/pages/template/itemlist/itemlist"/>
+<template is="itemlist" data={{newList:newList}}></template>

@@ -1,0 +1,20 @@
+<view class="search">
+  <form class="search-form">
+      <image src="/resources/icon/smallIco/search.png" class="search-ico" />
+      <input type="text" placeholder="请输入搜索商品名..." auto-focus class="search-input"
+                  confirm-type="search" onConfirm="searchItems" />
+  </form>
+</view>
+<view class="cats">
+
+  <block a:for="{{cats}}">
+    <view class="cat-item">
+      <navigator url="/pages/list/list?cid={{item.id}}" open-type="navigate">
+        <image src="/resources/category/{{item.id}}-{{item.code}}.png" class="cat-icon"/>
+        <view class="cat-name">{{item.name}}</view>
+      </navigator>
+    </view>
+  </block>
+ 
+  
+</view>

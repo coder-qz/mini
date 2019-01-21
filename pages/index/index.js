@@ -1,10 +1,78 @@
+const app = getApp();
 Page({
+  data:{
+      imgUrls:[],
+      recList:[],
+      newList:[],
+  },
   onLoad(query) {
     // 页面加载
     console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
   },
+  onPullDownRefresh(){
+    this.initData();
+  },
   onReady() {
-    // 页面加载完成
+    this.initData();
+  },
+  initData(){
+    var that = this
+    my.httpRequest({
+      url: app.serverUrl+'/index/carousels', // 目标服务器url
+      method: 'POST',
+      header:{ 
+          'content-type': 'application/json' 
+      },
+      dataType: 'json',
+      success: (res) => {
+        var response = res.data;
+        if(response.status==200){
+           var carousels = response.data;
+           that.setData({
+             imgUrls:carousels,
+
+           })
+        }
+        console.log(res);
+      },
+    });
+     my.httpRequest({
+      url: app.serverUrl+'/index/items/rec', // 目标服务器url
+      method: 'POST',
+      header:{ 
+          'content-type': 'application/json' 
+      },
+      dataType: 'json',
+      success: (res) => {
+        var response = res.data;
+        if(response.status==200){
+           var recList = response.data;
+           that.setData({
+             recList:recList,
+
+           })
+        }
+        console.log(res);
+      },
+    });
+    my.httpRequest({
+      url: app.serverUrl+'/index/items/new', // 目标服务器url
+      method: 'POST',
+      header:{ 
+          'content-type': 'application/json' 
+      },
+      dataType: 'json',
+      success: (res) => {
+        var response = res.data;
+        if(response.status==200){
+           var recList = response.data;
+           that.setData({
+             newList:recList,
+           })
+        }
+        console.log(res);
+      },
+    });
   },
   onShow() {
     // 页面显示
